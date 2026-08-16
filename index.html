@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Cake & Bakery</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-cream: #FFF6E9;
+            --cream-light: #FFF9F2;
+            --pink-pastel: #F4C2C2;
+            --pink-accent: #FF9EAA;
+            --brown-socola: #5B3A2E;
+            --brown-soft: #8C5A4C;
+            --white: #FFFFFF;
+            --shadow-soft: 0 10px 30px rgba(91, 58, 46, 0.08);
+            --shadow-hover: 0 15px 35px rgba(244, 194, 194, 0.4);
+            --border-radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--brown-socola);
+            overflow-x: hidden;
+            line-height: 1.6;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Hiệu ứng bong bóng rơi nhẹ ở nền */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(244, 194, 194, 0.2) 10%, transparent 10%),
+                        radial-gradient(circle, rgba(255, 158, 170, 0.15) 10%, transparent 10%);
+            background-size: 80px 80px;
+            background-position: 0 0, 40px 40px;
+            z-index: -1;
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0 0, 40px 40px; }
+            100% { background-position: 80px 80px, 120px 120px; }
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--pink-pastel);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--pink-accent);
+        }
+
+        /* Header / Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 246, 233, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px dashed var(--pink-pastel);
+            padding: 12px 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--brown-socola);
+        }
+
+        .logo-box img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--pink-pastel);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .logo-box:hover img {
+            transform: rotate(15deg) scale(1.15);
+        }
+
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-name span {
+            color: var(--pink-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown-socola);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--pink-pastel);
+            color: var(--brown-socola);
+            transform: translateY(-2px);
+        }
+
+        .badge-genz {
+            background: linear-gradient(135deg, #FF9EAA 0%, #F4C2C2 100%);
+            color: var(--brown-socola);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: inline-block;
+            box-shadow: 0 3px 8px rgba(255, 158, 170, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 40px 5% 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .hero-text {
+            animation: slideInDown 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            line-height: 1.2;
+            color: var(--brown-socola);
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--pink-accent);
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--brown-socola);
+            color: var(--bg-cream);
+            box-shadow: 0 8px 20px rgba(91, 58, 46, 0.25);
+        }
+
+        .btn-primary:hover {
+            background-color: #422920;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(91, 58, 46, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: var(--pink-pastel);
+            color: var(--brown-socola);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--pink-accent);
+            color: #fff;
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .hero-banner-img {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 4px solid #FFF;
+            transition: all 0.5s ease;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .hero-banner-img:hover {
+            transform: scale(1.03) rotate(0.5deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .hero-banner-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+            border-radius: calc(var(--border-radius) - 4px);
+        }
+
+        /* Section Title Styling */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 50px auto 30px;
+            padding: 0 20px;
+        }
+
+        .section-header .sub-title {
+            color: var(--pink-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--brown-socola);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Showcase 10 Spots Grid - 2 CỘT CHUẨN */
+        .showcase-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 4% 50px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .spot-card {
+            background: #FFF;
+            border: 2px dashed var(--pink-pastel);
+            padding: 18px 10px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.02);
+            border-radius: 18px;
+        }
+
+        .spot-card:hover {
+            border-style: solid;
+            border-color: var(--pink-accent);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            background: #FFF9F9;
+        }
+
+        .spot-card .spot-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--bg-cream);
+            color: var(--brown-socola);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.75rem;
+            border: 1px solid var(--pink-pastel);
+        }
+
+        .spot-icon-holder {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-cream);
+            color: var(--pink-accent);
+            font-size: 1.8rem;
+            transition: all 0.4s ease;
+        }
+
+        .spot-card:hover .spot-icon-holder {
+            transform: scale(1.15) rotate(10deg);
+            background: var(--pink-pastel);
+            color: var(--brown-socola);
+        }
+
+        /* Shapes ikon */
+        .shape-circle .spot-icon-holder { border-radius: 50%; }
+        .shape-square .spot-icon-holder { border-radius: 16px; }
+        .shape-rect .spot-icon-holder { border-radius: 10px; width: 90px; height: 55px; }
+        .shape-hexagon .spot-icon-holder { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        .shape-blob .spot-icon-holder { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        .shape-arch .spot-icon-holder { border-radius: 40px 40px 8px 8px; }
+        .shape-star .spot-icon-holder { border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; }
+        .shape-oval .spot-icon-holder { border-radius: 40px / 25px; width: 85px; height: 55px; }
+        .shape-diamond .spot-icon-holder { border-radius: 15px; transform: rotate(45deg); }
+        .shape-diamond:hover .spot-icon-holder { transform: rotate(55deg) scale(1.15); }
+        .shape-heart .spot-icon-holder { border-radius: 50% 50% 0 0; }
+
+        .spot-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--brown-socola);
+            margin-bottom: 4px;
+        }
+
+        .add-badge {
+            margin-top: 8px;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            background: #FFF0F0;
+            color: var(--pink-accent);
+            border-radius: 10px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .spot-card:hover .add-badge {
+            background: var(--pink-accent);
+            color: #fff;
+        }
+
+        /* Identity Gallery Section */
+        .identity-section {
+            background-color: var(--cream-light);
+            padding: 60px 5%;
+            border-top: 2px dashed var(--pink-pastel);
+            border-bottom: 2px dashed var(--pink-pastel);
+        }
+
+        .identity-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .gallery-item {
+            background: #FFF;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(244, 194, 194, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--pink-pastel);
+        }
+
+        .gallery-img-wrapper {
+            width: 100%;
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .gallery-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover .gallery-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .gallery-info {
+            padding: 15px 5px 5px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .gallery-info h3 {
+            font-size: 1.25rem;
+            color: var(--brown-socola);
+        }
+
+        /* Grid Spans */
+        .item-logo { grid-column: span 4; }
+        .item-sign { grid-column: span 8; }
+        .item-menu { grid-column: span 4; }
+        .item-apron { grid-column: span 4; }
+        .item-uniform { grid-column: span 4; }
+
+        .item-menu .gallery-img-wrapper,
+        .item-apron .gallery-img-wrapper,
+        .item-uniform .gallery-img-wrapper { height: 340px; }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(91, 58, 46, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #FFF;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            text-align: center;
+            animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); }
+            to { transform: scale(1); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--brown-socola);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--pink-accent);
+            color: #FFF;
+            transform: rotate(90deg);
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 65vh;
+            border-radius: 16px;
+            margin: 0 auto 15px;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brown-socola);
+            color: var(--bg-cream);
+            padding: 40px 5% 30px;
+            margin-top: 60px;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .footer-col h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--pink-pastel);
+        }
+
+        .footer-col p, .footer-col li {
+            font-size: 0.95rem;
+            color: #E2D4CD;
+            margin-bottom: 10px;
+            list-style: none;
+        }
+
+        .footer-col li i {
+            color: var(--pink-pastel);
+            margin-right: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,0.1);
+            color: var(--pink-pastel);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--pink-accent);
+            color: #FFF;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-title { font-size: 2.3rem; }
+            .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+            .item-logo, .item-sign, .item-menu, .item-apron, .item-uniform { grid-column: span 6; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 1.8rem; }
+            .section-header h2 { font-size: 1.6rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .item-logo, .item-sign, .item-menu, .item-apron, .item-uniform { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo-box">
+                <img src="C:\Users\lyngo\Downloads\77f7ab7636d4b78aeec5.jpg" alt="Cat Cake & Bakery Logo">
+                <div class="brand-name">Cat <span>Bakery</span></div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">Trang Chủ</a></li>
+                <li><a href="#showcase">Khu Trưng Bày</a></li>
+                <li><a href="#identity">Bộ Nhận Diện</a></li>
+                <li><a href="#menu">Thực Đơn</a></li>
+            </ul>
+
+            <div class="badge-genz">✨ GenZ Vibe</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-text">
+            <h1 class="hero-title">Tiệm Bánh Mèo Trắng <span>Siêu Cute</span> 🍰</h1>
+            <div class="hero-btns">
+                <a href="#showcase" class="btn btn-primary"><i class="fa-solid fa-store"></i> Khám Phá Trưng Bày</a>
+                <a href="#identity" class="btn btn-secondary"><i class="fa-solid fa-shirt"></i> Bộ Nhận Diện</a>
+            </div>
+        </div>
+
+        <div class="hero-banner-img clickable-img" data-src="C:\Users\lyngo\Downloads\061502959f371e694726.jpg" data-title="Bảng Hiệu Thương Hiệu Cat Cake & Bakery">
+            <img src="C:\Users\lyngo\Downloads\061502959f371e694726.jpg" alt="Bảng Hiệu Cat Cake & Bakery">
+        </div>
+    </section>
+
+    <!-- 10 Display Spots Showcase Section -->
+    <section class="showcase-section" id="showcase">
+        <div class="section-header">
+            <span class="sub-title">Exhibition Space</span>
+            <h2>Không Gian Trưng Bày Bánh 10 Vị Trí</h2>
+        </div>
+
+        <div class="showcase-grid">
+            <!-- Spot 1 -->
+            <div class="spot-card shape-circle" onclick="openSpotModal(1, 'Ô Tròn Mousse')">
+                <div class="spot-number">01</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-circle-notch"></i></div>
+                <div class="spot-title">Vị Trí Tròn Pastry</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 2 -->
+            <div class="spot-card shape-square" onclick="openSpotModal(2, 'Khung Vuông Bento')">
+                <div class="spot-number">02</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-vector-square"></i></div>
+                <div class="spot-title">Khung Vuông Bento</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 3 -->
+            <div class="spot-card shape-rect" onclick="openSpotModal(3, 'Thềm Chữ Nhật')">
+                <div class="spot-number">03</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-cubes"></i></div>
+                <div class="spot-title">Thềm Chữ Nhật</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 4 -->
+            <div class="spot-card shape-hexagon" onclick="openSpotModal(4, 'Đài Lục Giác')">
+                <div class="spot-number">04</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-shapes"></i></div>
+                <div class="spot-title">Đài Lục Giác</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 5 -->
+            <div class="spot-card shape-arch" onclick="openSpotModal(5, 'Mái Vòm Cổ Điển')">
+                <div class="spot-number">05</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-chess-king"></i></div>
+                <div class="spot-title">Mái Vòm Hoàng Gia</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 6 -->
+            <div class="spot-card shape-blob" onclick="openSpotModal(6, 'Góc Blob Nghệ Thuật')">
+                <div class="spot-number">06</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-cookie"></i></div>
+                <div class="spot-title">Góc Blob Nghệ Thuật</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 7 -->
+            <div class="spot-card shape-heart" onclick="openSpotModal(7, 'Trái Tim Love Cake')">
+                <div class="spot-number">07</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-heart"></i></div>
+                <div class="spot-title">Trái Tim Love Cake</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 8 -->
+            <div class="spot-card shape-oval" onclick="openSpotModal(8, 'Khay Oval Kiêu Sa')">
+                <div class="spot-number">08</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-egg"></i></div>
+                <div class="spot-title">Khay Oval Kiêu Sa</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 9 -->
+            <div class="spot-card shape-diamond" onclick="openSpotModal(9, 'Tháp Kim Cương')">
+                <div class="spot-number">09</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-gem"></i></div>
+                <div class="spot-title">Tháp Kim Cương</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+
+            <!-- Spot 10 -->
+            <div class="spot-card shape-star" onclick="openSpotModal(10, 'Ngôi Sao Best-Seller')">
+                <div class="spot-number">10</div>
+                <div class="spot-icon-holder"><i class="fa-solid fa-star"></i></div>
+                <div class="spot-title">Ngôi Sao Best-Seller</div>
+                <div class="add-badge">+ Đang Chờ Bánh</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Identity Gallery Section -->
+    <section class="identity-section" id="identity">
+        <div class="identity-container">
+            <div class="section-header">
+                <span class="sub-title">Brand Visual Identity</span>
+                <h2>Bộ Nhận Diện Thương Hiệu Cat Cake</h2>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- 1. Bảng Hiệu Quán -->
+                <div class="gallery-item item-sign">
+                    <div class="gallery-img-wrapper clickable-img" data-src="C:\Users\lyngo\Downloads\061502959f371e694726.jpg" data-title="Bảng Hiệu Thương Hiệu - Cat Cake & Bakery">
+                        <img src="C:\Users\lyngo\Downloads\061502959f371e694726.jpg" alt="Bảng Hiệu Quán">
+                    </div>
+                    <div class="gallery-info">
+                        <h3><i class="fa-solid fa-store" style="color: var(--pink-accent);"></i> Bảng Hiệu Thương Hiệu</h3>
+                    </div>
+                </div>
+
+                <!-- 2. Logo Quán -->
+                <div class="gallery-item item-logo">
+                    <div class="gallery-img-wrapper clickable-img" data-src="C:\Users\lyngo\Downloads\77f7ab7636d4b78aeec5.jpg" data-title="Logo Official Cat Cake">
+                        <img src="C:\Users\lyngo\Downloads\77f7ab7636d4b78aeec5.jpg" alt="Logo Quán">
+                    </div>
+                    <div class="gallery-info">
+                        <h3><i class="fa-solid fa-cat" style="color: var(--pink-accent);"></i> Logo Thương Hiệu</h3>
+                    </div>
+                </div>
+
+                <!-- 3. Menu Quán -->
+                <div class="gallery-item item-menu" id="menu">
+                    <div class="gallery-img-wrapper clickable-img" data-src="C:\Users\lyngo\Downloads\cad7b0572df5acabf5e4.jpg" data-title="Thực Đơn Quán">
+                        <img src="C:\Users\lyngo\Downloads\cad7b0572df5acabf5e4.jpg" alt="Menu Quán">
+                    </div>
+                    <div class="gallery-info">
+                        <h3><i class="fa-solid fa-book-open" style="color: var(--pink-accent);"></i> Thực Đơn Quán</h3>
+                    </div>
+                </div>
+
+                <!-- 4. Tạp Dề Quán -->
+                <div class="gallery-item item-apron">
+                    <div class="gallery-img-wrapper clickable-img" data-src="C:\Users\lyngo\Downloads\42539dd20070812ed861.jpg" data-title="Tạp Dề Làm Bánh">
+                        <img src="C:\Users\lyngo\Downloads\42539dd20070812ed861.jpg" alt="Tạp Dề Quán">
+                    </div>
+                    <div class="gallery-info">
+                        <h3><i class="fa-solid fa-user-ninja" style="color: var(--pink-accent);"></i> Tạp Dề Làm Bánh</h3>
+                    </div>
+                </div>
+
+                <!-- 5. Áo Đồng Phục -->
+                <div class="gallery-item item-uniform">
+                    <div class="gallery-img-wrapper clickable-img" data-src="C:\Users\lyngo\Downloads\a8e7c3665ec4df9a86d5.jpg" data-title="Áo Đồng Phục">
+                        <img src="C:\Users\lyngo\Downloads\a8e7c3665ec4df9a86d5.jpg" alt="Áo Đồng Phục">
+                    </div>
+                    <div class="gallery-info">
+                        <h3><i class="fa-solid fa-shirt" style="color: var(--pink-accent);"></i> Áo Đồng Phục</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo-box" style="margin-bottom: 15px;">
+                    <img src="C:\Users\lyngo\Downloads\77f7ab7636d4b78aeec5.jpg" alt="Cat Bakery Logo" style="width: 45px; height: 45px;">
+                    <div class="brand-name" style="color: #FFF;">Cat <span>Bakery</span></div>
+                </div>
+                <div class="social-icons">
+    <!-- Dán link Facebook vào href -->
+    <a href="https://www.facebook.com/share/1EiXezQe7q/" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+
+    <!-- Dán link Instagram vào href -->
+    <a href="https://www.instagram.com/crazy_24th7?igsh=MWFna3YzNjlvN3lsag==" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <!-- Dán link TikTok vào href -->
+    <a href="https://www.tiktok.com/@cachuikieng3?_r=1&_t=ZS-98vhSJiV1fx" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-tiktok"></i>
+    </a>
+</div>
+
+            <div class="footer-col">
+                <h4>Giờ Mở Cửa</h4>
+                <p><i class="fa-regular fa-clock" style="color: var(--pink-pastel);"></i> Thứ 2 - Thứ 7 : 0:00 AM - 21:00 PM</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Lightbox Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img src="" alt="Popup Image" class="modal-img" id="modalImg">
+            <h3 id="modalTitle" style="color: var(--brown-socola); font-size: 1.4rem;"></h3>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+
+        document.querySelectorAll('.clickable-img').forEach(item => {
+            item.addEventListener('click', function() {
+                const src = this.getAttribute('data-src');
+                const title = this.getAttribute('data-title') || 'Cat Cake & Bakery';
+                modalImg.src = src;
+                modalTitle.textContent = title;
+                modal.classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        function openSpotModal(spotNum, title) {
+            modalImg.src = "77f7ab7636d4b78aeec5.jpg";
+            modalTitle.textContent = `📍 Ô Trưng Bày Số ${spotNum}: ${title}`;
+            modal.classList.add('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
